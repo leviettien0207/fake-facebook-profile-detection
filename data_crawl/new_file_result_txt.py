@@ -5,7 +5,7 @@ def new_file():
     while os.path.isfile('out\\result_{}'.format(i)):
         i += 1
     
-    return 'result_{}'.format(i)
+    return 'out\\result_{}'.format(i)
 
 
 
