@@ -73,10 +73,16 @@ def find_user_by_name(browser):
             browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
             sleep_3()
             
+            # Kiểm tra case không có kết quả
             # thu thập 10 thằng cuối
-            list_users = browser.find_elements(By.XPATH, "//div[@class='x1oo3vh0 x1rdy4ex']")[0].find_elements(By.XPATH, "//a[@aria-hidden='true']")[-10:]
-            sleep_3()
-
+            try:
+                list_users = browser.find_elements(By.XPATH, "//div[@class='x1oo3vh0 x1rdy4ex']")[0].find_elements(By.XPATH, "//a[@aria-hidden='true']")[-10:]
+                sleep_3()
+            except:
+                pass
+            
+            if not list_users:
+                break
             for user in list_users:
                 id_set.append(user.get_attribute("href")[-16:-1])
 
