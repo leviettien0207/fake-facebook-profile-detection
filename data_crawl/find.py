@@ -26,7 +26,7 @@ def find_recent_user(browser):
         sleep_3()
 
         for user in list_users:
-            id_set.append(user.get_attribute("href")[-16:-1])
+            id_set.append(user.get_attribute("href").split('/')[-2])
 
             if len(id_set) == 200:
                 for uid in id_set:
@@ -84,7 +84,7 @@ def find_user_by_name(browser):
             if not list_users:
                 break
             for user in list_users:
-                id_set.append(user.get_attribute("href")[-16:-1])
+                id_set.append(user.get_attribute("href").split('/')[-2])
 
                 if len(id_set) == 200:
                     for uid in id_set:
