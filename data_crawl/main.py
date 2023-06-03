@@ -33,9 +33,9 @@ def main():
         logging.info(f'Finding recent join group...')
         find_recent_user(browser)
 
-        # find by name.
-        logging.info(f'Finding by name...')
-        find_user_by_name(browser)
+        ## find by name.
+        #logging.info(f'Finding by name...')
+        #find_user_by_name(browser)
 
         logging.info(f'Done page link {link}')
 
