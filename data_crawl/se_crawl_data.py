@@ -65,6 +65,8 @@ def get_nums_of_friend(browser: WebDriver):
         info = browser.find_element(By.XPATH, cf.xpath_nums_friend).text.split()[0]
         if 'K' in info:
             info = float(info[:-1]) * 1000
+        else:
+            info = float(info)
     except:
         info = None
     return info
