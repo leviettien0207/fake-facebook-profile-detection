@@ -16,6 +16,7 @@ def find_recent_user(browser):
     # mở file
     fhandle = open(new_file(), "a+")
 
+    i = 0
     while True:
         # Scroll down to bottom
         browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
@@ -40,6 +41,10 @@ def find_recent_user(browser):
         if new_height == last_height:
             break
         last_height = new_height
+
+        i += 1
+        if i == 50:
+            break
 
     fhandle.close()
 
