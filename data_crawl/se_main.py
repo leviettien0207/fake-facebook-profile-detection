@@ -51,13 +51,12 @@ def main():
                 logging.info(f'Done page link {uid}')
 
             # open file
-            if len(list_data) == 2:
+            if len(list_data) == 200:
                 dictionary = {
                     "list_users": list_data
                 }
 
                 json_object = json.dumps(dictionary, indent=4, ensure_ascii=False)
-                print(json_object)
 
                 with open(new_file_2(), "w", encoding='utf-8') as outfile:
                     outfile.write(json_object)
