@@ -1,0 +1,173 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+* {
+    box-sizing: border-box;
+}
+
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+.search {
+    margin-top: 100px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.search > img {
+    width: 600px;
+    border-radius: 10px;
+    margin-bottom: 28px;
+}
+
+.form {
+    margin-bottom: 50px;
+}
+
+input {
+    border-radius: 25px;
+    border: 2px solid #020202;
+    padding: 20px; 
+    width: 500px;
+    height: 10px;
+  }
+
+.btn {
+    width: 100px;
+    height: 40px;
+    background-color: #fff;
+    border: 2px solid black;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+.btn:active {
+    background-color: #d3d3d3;
+}
+.circular-chart {
+    width: 150px;
+    display: block;
+    max-height: 250px;
+  }
+
+  .circle-bg {
+    fill: none;
+    stroke: #eee;
+    stroke-width: 3.8;
+  }
+  
+  .circle {
+    fill: none;
+    stroke-width: 2.8;
+    stroke-linecap: round;
+    animation: progress 1s ease-out forwards;
+  }
+  
+  @keyframes progress {
+    0% {
+      stroke-dasharray: 0 100;
+    }
+  }
+  
+  .circular-chart.orange .circle {
+    stroke: #ff0000;
+  }
+
+  .percentage {
+    fill: #ff0404;
+    font-family: sans-serif;
+    font-size: 0.5em;
+    text-anchor: middle;
+  }
+
+  .flex {
+    align-items: center;
+    display: flex;
+  }
+
+  .flex-col {
+    flex-direction: column;
+  }
+
+  .flex-row {
+    flex-direction: row;
+  }
+
+  .display-section{
+    display: none;
+  }
+
+  .avatar {
+    background-size: contain;
+    width: 150px;
+    height: 150px;
+    background-position: center;
+    border-radius: 50%;
+  }
+
+  .infor-container{
+    align-items: flex-end;
+  }
+
+  .result-container {
+    align-items: flex-end;
+  }
+    .result{
+        min-width: 400px;
+    }
+  .name {
+    font-size: 32px;
+    font-weight: 700;
+  }
+
+  .display-section {
+    justify-content: center;
+  }
+
+  .input-link, .message {
+    font-size: 14px;
+    height: 50px;
+  }
