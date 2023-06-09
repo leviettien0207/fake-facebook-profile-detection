@@ -1,6 +1,7 @@
-from new_file_result_txt import new_file
+from new_file import new_file
 from sleep import sleep_3
 from selenium.webdriver.common.by import By
+
 
 def find_recent_user(browser):
     """
@@ -20,9 +21,11 @@ def find_recent_user(browser):
         # Scroll down to bottom
         browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
         sleep_3()
-        
+
         # thu thập 10 thằng cuối
-        list_users = browser.find_elements(By.XPATH, "//div[@class='x1oo3vh0 x1rdy4ex']")[0].find_elements(By.XPATH, "//a[@aria-hidden='true']")[-10:]
+        list_users = browser.find_elements(By.XPATH, "//div[@class='x1oo3vh0 x1rdy4ex']")[0].find_elements(By.XPATH,
+                                                                                                           "//a[@aria-hidden='true']")[
+                     -10:]
         sleep_3()
 
         for user in list_users:
@@ -61,7 +64,7 @@ def find_user_by_name(browser):
     # loop each name
     name_list = open('in\str_name.txt')
     for uname in name_list:
-        
+
         # input name
         element = browser.find_elements(By.XPATH, "//input[@dir='ltr']")[-1]
         element.clear()
@@ -72,15 +75,16 @@ def find_user_by_name(browser):
             # Scroll down to bottom
             browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
             sleep_3()
-            
+
             # Kiểm tra case không có kết quả
             # thu thập 10 thằng cuối
             try:
-                list_users = browser.find_elements(By.XPATH, "//div[@class='x1oo3vh0 x1rdy4ex']")[0].find_elements(By.XPATH, "//a[@aria-hidden='true']")[-10:]
+                list_users = browser.find_elements(By.XPATH, "//div[@class='x1oo3vh0 x1rdy4ex']")[0].find_elements(
+                    By.XPATH, "//a[@aria-hidden='true']")[-10:]
                 sleep_3()
             except:
                 pass
-            
+
             if not list_users:
                 break
             for user in list_users:

@@ -19,9 +19,16 @@ xpath_check_ins = '//div[@data-pagelet="ProfileAppSection_0"]'
 
 xpath_sex = '//span[@class="x193iq5w xeuugli x13faqbe x1vvkbs x1xmvt09 x1lliihq x1s928wv xhkezso x1gmr53x x1cpjm7i x1fgarty x1943h6x xudqn12 x3x7a5m x6prxxf xvq8zen xo1l8bm xzsf02u x1yc453h"]'
 
-sex_url = 'https://www.facebook.com/profile.php?id={}&sk=about_contact_and_basic_info'
+sex_age_url = 'https://www.facebook.com/profile.php?id={}&sk=about_contact_and_basic_info'
 about_url = 'https://www.facebook.com/profile.php?id={}&sk=about_overview'
 photos_url = 'https://www.facebook.com/profile.php?id={}&sk=photos'
 albums_url = 'https://www.facebook.com/profile.php?id={}&sk=photos_albums'
 videos_url = 'https://www.facebook.com/profile.php?id={}&sk=videos'
 
+no_info_icon = 'https://static.xx.fbcdn.net/rsrc.php/v3/yA/r/4YyyTqCEtie.png'
+sex_icon = ("https://static.xx.fbcdn.net/rsrc.php/v3/yo/r/wfYa2HPiNGU.png", "https://static.xx.fbcdn.net/rsrc.php/v3/yi/r/rodGQv9jZg5.png")
+bod_icon = ("https://static.xx.fbcdn.net/rsrc.php/v3/yH/r/8h5bbU4i43W.png",)
+
+data_protected = 'protected'
+
+batch_data = 2
