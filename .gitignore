@@ -1,2 +1,3 @@
 # virtual environment for python
 env
+__pycache__
