@@ -51,7 +51,7 @@ def main():
             if is_exist(browser):
                 # get data
                 list_data.append(get_all(browser, uid))
-                logging.info(f'Done page link {uid}')
+                logging.info(f'Done page link {uid}   {len(list_data)}/{cf.batch_data}')
 
             # open file
             if len(list_data) == cf.batch_data:
