@@ -1,11 +1,18 @@
 from airflow import DAG
 from airflow.operators.python import PythonOperator
-from datetime import datetime
+from airflow.timetables.simple import ContinuousTimetable
 from selenium import webdriver
-import logging
-import json
+
+from datetime import datetime
+
+from config import batch_data
 from run import *
 
+import logging
+import json
+
+
+dag_path = "/home/tienle/airflow/dags"
 
 def crawl_data():
     # open browser and disable notification
@@ -23,7 +30,7 @@ def crawl_data():
 
     # open each main profile
     logging.info('Open folder contains only ids')
-    file_id_list = os.listdir('input')
+    file_id_list = os.listdir(dag_path + '/input')
 
     # Remove sample file
     try:
@@ -39,7 +46,7 @@ def crawl_data():
 
             # open file
             logging.info(f'Open file {file}')
-            id_list = open(f'input/{file}')
+            id_list = open(dag_path + f'/input/{file}')
 
             # loop user id
             for uid in id_list:
@@ -56,8 +63,8 @@ def crawl_data():
                     list_data.append(get_all(browser, uid))
                     logging.info(f'Done page link {uid}   {len(list_data)}')
 
-                # when collect enough 100 data of users
-                if len(list_data) == 100:
+                # when collect enough batch_data of users
+                if len(list_data) == batch_data:
                     # write file
                     dictionary = {
                         "list_users": list_data
@@ -65,7 +72,7 @@ def crawl_data():
 
                     json_object = json.dumps(dictionary, indent=4, ensure_ascii=False)
 
-                    with open(new_file(), "w", encoding='utf-8') as outfile:
+                    with open(new_file_1(), "w", encoding='utf-8') as outfile:
                         outfile.write(json_object)
 
                     # stop reading user id
@@ -76,24 +83,47 @@ def crawl_data():
             id_list.seek(0)
             lines = id_list.readlines()
 
+            # file no contents
+            if len(lines) == 0:
+                # next file
+                logging.info(f'file {file} no content')
+                continue
             # if reach end, delete file
-            if lines[-1] == uid + '\n':
-                os.remove(f'input/{file}')
+            elif lines[-1] == uid + '\n':
+                logging.info(f'remove file {file}')
+                os.remove(dag_path + f'/input/{file}')
             # if not delete to id used of file
             else:
-                new_file = open(f'input/{file}', "w")
+                logging.info(f'delete uid used in file {file}')
+                new_file = open(dag_path + f'/input/{file}', "w")
 
                 i = 0
                 flag = True
-                while i <= len(lines):
+                while i < len(lines):
                     if not flag:
                         new_file.write(lines[i])
-                    if lines[i] == uid:
+                    if lines[i] == uid + '\n':
                         flag = False
                     i += 1
 
-            if len(list_data) == 100:
+            # In case enough from many files
+            if len(list_data) == batch_data:
                 break
+            # In case no more file but not yet enough
+            elif file == file_id_list[-1]:
+                logging.info(f'no more file to process')
+                # write file
+                dictionary = {
+                    "list_users": list_data
+                }
+
+                json_object = json.dumps(dictionary, indent=4, ensure_ascii=False)
+
+                with open(new_file_1(), "w", encoding='utf-8') as outfile:
+                    outfile.write(json_object)
+
+    else:
+        logging.info(f'no file id to input')
 
     # close browser
     browser.close()
@@ -106,7 +136,7 @@ with DAG(
             "email": ["tien.lv@teko.vn"],
             "email_on_failure": False,
             "email_on_retry": False,
-            "retries": 1,
+            # "retries": 1,
             # "retry_delay": timedelta(minutes=5),
             # 'queue': 'bash_queue',
             # 'pool': 'backfill',
@@ -126,9 +156,9 @@ with DAG(
         start_date=datetime(2023, 6, 9),
         catchup=True,
         tags=["fb_data"],
+        max_active_runs=1
 ) as dag:
     python_task = PythonOperator(
         task_id='crawl_data',
-        python_callable=crawl_data,
-        retries=1
+        python_callable=crawl_data
     )
