@@ -7,6 +7,7 @@ import os
 
 dag_path = "/home/tienle/airflow/dags"
 
+
 def new_file_1():
     i = 0
     while os.path.isfile(dag_path + '/out_data/result_{}.json'.format(i)):
