@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+
 def login(browser):
     browser.get("https://www.facebook.com/")
 

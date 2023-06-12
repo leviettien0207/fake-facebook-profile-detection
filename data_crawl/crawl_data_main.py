@@ -3,18 +3,21 @@ from login_fb import login
 from sleep import sleep_3
 import logging
 import os
-from new_file_result_txt import new_file_2
-from se_crawl_data import get_all
+from new_file import new_file_2
+from crawl_data_run import get_all
 import json
 from isExist import is_exist
+import config as cf
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s', datefmt='%d-%b-%y %H:%M:%S')
+
 
 def main():
     # open browser and disable notification
     chrome_options = webdriver.ChromeOptions()
-    prefs = {"profile.default_content_setting_values.notifications" : 2}
-    chrome_options.add_experimental_option("prefs",prefs)
+    prefs = {"profile.default_content_setting_values.notifications": 2}
+    chrome_options.add_experimental_option("prefs", prefs)
+    chrome_options.add_argument('--headless=new')
 
     browser = webdriver.Chrome(executable_path='chromedriver.exe', chrome_options=chrome_options)
 
@@ -38,7 +41,7 @@ def main():
         id_list = open(f'out\{file}')
         for uid in id_list:
 
-            uid = uid.replace('\n','')
+            uid = uid.replace('\n', '')
             # open group member page
             logging.info(f'Open member page link {uid}')
             browser.get("https://www.facebook.com/" + uid)
@@ -48,10 +51,10 @@ def main():
             if is_exist(browser):
                 # get data
                 list_data.append(get_all(browser, uid))
-                logging.info(f'Done page link {uid}')
+                logging.info(f'Done page link {uid}   {len(list_data)}/{cf.batch_data}')
 
             # open file
-            if len(list_data) == 200:
+            if len(list_data) == cf.batch_data:
                 dictionary = {
                     "list_users": list_data
                 }
@@ -65,6 +68,7 @@ def main():
 
     # close browser
     browser.close()
-    
+
+
 if __name__ == '__main__':
     main()
