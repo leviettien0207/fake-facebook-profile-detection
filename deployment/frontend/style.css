@@ -26,7 +26,7 @@ time, mark, audio, video {
 * {
     box-sizing: border-box;
 }
-
+/* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
 	display: block;
@@ -69,33 +69,56 @@ table {
 
 input {
     border-radius: 25px;
-    border: 2px solid #020202;
+    border: transparent;
+    outline: none;
     padding: 20px; 
     width: 500px;
     height: 10px;
   }
 
 .btn {
-    width: 100px;
-    height: 40px;
-    background-color: #fff;
-    border: 2px solid black;
-    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: none;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
     cursor: pointer;
+    
 }
 
-.btn:active {
+.x-icon{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  visibility: hidden;
+}
+
+.search-group {
+  display: flex;
+  align-items: center;
+  border-radius: 25px;
+  border: 2px solid black;
+}
+
+.btn:active, .x-icon:active {
     background-color: #d3d3d3;
 }
 .circular-chart {
     width: 150px;
     display: block;
+    /* max-width: 80%; */
     max-height: 250px;
   }
 
   .circle-bg {
     fill: none;
-    stroke: #eee;
+    stroke: #9FE6A0;
     stroke-width: 3.8;
   }
   
@@ -113,7 +136,7 @@ input {
   }
   
   .circular-chart.orange .circle {
-    stroke: #ff0000;
+    stroke: #F55C47;
   }
 
   .percentage {
@@ -141,6 +164,7 @@ input {
   }
 
   .avatar {
+    /* background-image: url('./logo.png'); */
     background-size: contain;
     width: 150px;
     height: 150px;
@@ -168,6 +192,17 @@ input {
   }
 
   .input-link, .message {
-    font-size: 14px;
-    height: 50px;
+    font-size: 18px;
+    font-weight: 500;
+    border: 1px solid #999;
+    border-radius: 5px;
+    padding: 8px 16px;
+    margin-bottom: 10px;
+    margin-left: 20px;
+  }
+
+  .error-mess{
+    text-align: center;
+    color: red;
+    display: none;
   }
