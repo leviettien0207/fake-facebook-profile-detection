@@ -2,6 +2,9 @@ from sleep import sleep_3
 from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.common.by import By
 import config as cf
+import logging
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s', datefmt='%d-%b-%y %H:%M:%S')
 
 
 def get_all(browser, uid):
@@ -36,10 +39,12 @@ def get_all(browser, uid):
 
 
 def get_name(browser: WebDriver):
+    logging.info('get name')
     return browser.find_element(By.XPATH, cf.xpath_name).text
 
 
 def get_ava(browser: WebDriver):
+    logging.info('get ava')
     info = (
         browser.find_elements(By.XPATH, cf.xpath_ava)[1]
         .find_element(By.XPATH, "./child::*").get_attribute("xlink:href")
@@ -48,6 +53,7 @@ def get_ava(browser: WebDriver):
 
 
 def get_cover(browser: WebDriver):
+    logging.info('get cover')
     try:
         info = (
             browser.find_elements(By.XPATH, cf.xpath_cover)[2]
@@ -59,6 +65,7 @@ def get_cover(browser: WebDriver):
 
 
 def get_introduction(browser: WebDriver):
+    logging.info('get intro')
     try:
         info = (
             browser.find_elements(By.XPATH, cf.xpath_introduction_p)[0]
@@ -70,6 +77,7 @@ def get_introduction(browser: WebDriver):
 
 
 def get_nums_of_friend(browser: WebDriver):
+    logging.info('get_nums_of_friend')
     try:
         info = browser.find_element(By.XPATH, cf.xpath_nums_friend).text.split()[0]
         if 'K' in info:
@@ -86,6 +94,7 @@ def get_about(browser: WebDriver):
 
 
 def get_nums_of_images(browser: WebDriver, uid):
+    logging.info('get_nums_of_images')
     browser.get(cf.photos_url.format(uid))
 
     while not browser.find_elements(By.XPATH, cf.xpath_check_ins):
@@ -96,6 +105,7 @@ def get_nums_of_images(browser: WebDriver, uid):
 
 
 def get_nums_of_albums(browser: WebDriver, uid):
+    logging.info('get_nums_of_albums')
     browser.get(cf.albums_url.format(uid))
 
     while not browser.find_elements(By.XPATH, cf.xpath_check_ins):
@@ -106,6 +116,7 @@ def get_nums_of_albums(browser: WebDriver, uid):
 
 
 def get_nums_of_videos(browser: WebDriver, uid):
+    logging.info('get_nums_of_videos')
     # browser.get(cf.videos_url.format(uid))
 
     # while not browser.find_elements(By.XPATH, cf.xpath_check_ins):
@@ -215,6 +226,7 @@ def get_post(browser: WebDriver):
 
 
 def get_sex(browser: WebDriver, uid):
+    logging.info('get_sex')
     browser.get(cf.sex_age_url.format(uid))
     sleep_3()
 
@@ -263,6 +275,7 @@ def get_sex(browser: WebDriver, uid):
 
 
 def get_age(browser: WebDriver, uid):
+    logging.info('get_age')
     # browser.get(cf.sex_age_url.format(uid))
     # sleep_3()
 
@@ -322,6 +335,7 @@ def get_nums_nested_link(browser: WebDriver):
 
 
 def get_countryside(browser: WebDriver, uid):
+    logging.info('get_countryside')
     browser.get(cf.about_url.format(uid))
     sleep_3()
 
@@ -336,6 +350,7 @@ def get_countryside(browser: WebDriver, uid):
 
 
 def get_address(browser: WebDriver, uid):
+    logging.info('get_address')
     browser.get(cf.about_url.format(uid))
     sleep_3()
 
@@ -353,6 +368,7 @@ def get_address(browser: WebDriver, uid):
 
 
 def get_rela(browser: WebDriver, uid):
+    logging.info('get_rela')
     browser.get(cf.about_url.format(uid))
     sleep_3()
 
