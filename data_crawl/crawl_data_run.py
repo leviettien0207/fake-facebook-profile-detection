@@ -97,9 +97,16 @@ def get_nums_of_images(browser: WebDriver, uid):
     logging.info('get_nums_of_images')
     browser.get(cf.photos_url.format(uid))
 
+    last_height = browser.execute_script("return document.body.scrollHeight")
+
     while not browser.find_elements(By.XPATH, cf.xpath_check_ins):
         browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
         sleep_3()
+
+        new_height = browser.execute_script("return document.body.scrollHeight")
+        if new_height == last_height:
+            break
+        last_height = new_height
 
     return len(browser.find_elements(By.XPATH, cf.xpath_photos))
 
@@ -108,20 +115,34 @@ def get_nums_of_albums(browser: WebDriver, uid):
     logging.info('get_nums_of_albums')
     browser.get(cf.albums_url.format(uid))
 
+    last_height = browser.execute_script("return document.body.scrollHeight")
+
     while not browser.find_elements(By.XPATH, cf.xpath_check_ins):
         browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
         sleep_3()
+
+        new_height = browser.execute_script("return document.body.scrollHeight")
+        if new_height == last_height:
+            break
+        last_height = new_height
 
     return len(browser.find_elements(By.XPATH, cf.xpath_albums))
 
 
 def get_nums_of_videos(browser: WebDriver, uid):
     logging.info('get_nums_of_videos')
-    # browser.get(cf.videos_url.format(uid))
+    browser.get(cf.videos_url.format(uid))
 
-    # while not browser.find_elements(By.XPATH, cf.xpath_check_ins):
-    #     browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-    #     sleep_3()
+    last_height = browser.execute_script("return document.body.scrollHeight")
+
+    while not browser.find_elements(By.XPATH, cf.xpath_check_ins):
+        browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+        sleep_3()
+
+        new_height = browser.execute_script("return document.body.scrollHeight")
+        if new_height == last_height:
+            break
+        last_height = new_height
 
     return len(browser.find_elements(By.XPATH, cf.xpath_albums))
 
