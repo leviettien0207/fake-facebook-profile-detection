@@ -82,28 +82,3 @@ class Dirsm(nn.Module):
         out = torch.cat((out1,out2),1)
         out = self.classifier(out)
         return out
-        self.visual.fc = nn.Sequential(nn.Linear(in_features = 2048,out_features = 1000))
-        self.text = MulBert()
-        self.classifier = nn.Sequential(
-            nn.Linear(in_features=1300,out_features=1000),
-            nn.Dropout(0.2),
-            nn.ReLU(),
-            nn.Linear(in_features=1000,out_features = 512),
-            nn.Dropout(0.2),
-            nn.ReLU(),
-            nn.Linear(in_features=512,out_features = 256),
-            nn.Dropout(0.15),
-            nn.ReLU(),
-            nn.Linear(in_features=256,out_features = 1),
-            nn.Dropout(0.1),
-            nn.Sigmoid()
-        )
-  def forward(self,
-        sent_id_1, mask_1,
-        sent_id_2 ,mask_2,image):
-        out1 = self.visual(image)
-        out2 = self.text(sent_id_1, mask_1,
-        sent_id_2 ,mask_2)
-        out = torch.cat((out1,out2),1)
-        out = self.classifier(out)
-        return out
