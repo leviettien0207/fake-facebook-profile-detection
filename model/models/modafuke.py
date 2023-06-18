@@ -11,16 +11,6 @@ class MulBert(nn.Module):
         super(MulBert, self).__init__()
         self.Bert_1 = BertModel.from_pretrained('bert-base-uncased')
         self.Bert_2 = BertModel.from_pretrained('bert-base-uncased')
-        # for param in self.Bert_1.parameters():
-        #     param.requires_grad = False
-        # for param in self.Bert_2.parameters():
-        #     param.requires_grad = False
-#         self.Bert_1.pooler = nn.Sequential(
-#     nn.Linear(in_features=768, out_features=1000, bias=True)
-# )       
-#         self.Bert_2.pooler = nn.Sequential(
-#     nn.Linear(in_features=768, out_features=1000, bias=True)
-# )
         self.linear_relu_stack = nn.Sequential(
             nn.Linear(768*2, 1000),
             nn.Dropout(0.2),
@@ -41,19 +31,13 @@ class MulBert(nn.Module):
         _ , outputs_1 = self.Bert_1(
             sent_id_1,attention_mask=mask_1, return_dict=False
         )
-        
         _ , outputs_2 = self.Bert_2(
             sent_id_2,attention_mask=mask_2, return_dict=False
         )
-        outputs = torch.cat((outputs_1,outputs_2),1)
-        
+        outputs = torch.cat((outputs_1,outputs_2),1)        
         outputs =  self.linear_relu_stack(outputs) # add hidden states and attention if they are here
-
         return outputs
 class Dirsm(nn.Module):
-  def __init__(self):
-        super(Dirsm, self).__init__()
-        self.visual = class Dirsm(nn.Module):
   def __init__(self):
         super(Dirsm, self).__init__()
         self.visual = torch.hub.load('pytorch/vision:v0.10.0', 'inception_v3', pretrained=True)
