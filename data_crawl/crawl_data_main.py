@@ -28,7 +28,7 @@ def main():
 
     # open each main profile
     logging.info('Open list id to crawl detail')
-    file_id_list = os.listdir('out')
+    file_id_list = os.listdir('output_id')
 
     try:
         file_id_list.remove('example.txt')
@@ -38,7 +38,7 @@ def main():
     list_data = []
     for file in file_id_list:
         logging.info(f'Open file {file}')
-        id_list = open(f'out\{file}')
+        id_list = open(f'output_id\\{file}')
         for uid in id_list:
 
             uid = uid.replace('\n', '')

@@ -31,4 +31,4 @@ bod_icon = ("https://static.xx.fbcdn.net/rsrc.php/v3/yH/r/8h5bbU4i43W.png",)
 
 data_protected = 'protected'
 
-batch_data = 2
+batch_data = 50

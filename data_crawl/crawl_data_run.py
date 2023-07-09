@@ -20,31 +20,29 @@ def get_all(browser, uid):
         'introduction': get_introduction(browser),
         'nums_of_friend': get_nums_of_friend(browser),
         # 'post': get_post(browser),
-        'sex': get_sex(browser, uid),
-        'age': get_age(browser, uid),
-        # 'nums_nested_link': get_nums_nested_link(browser),
-
-        # 'about': get_about(browser),
-
-        'nums_of_images': get_nums_of_images(browser, uid),
-        'nums_of_videos': get_nums_of_videos(browser, uid),
-        'nums_of_albums': get_nums_of_albums(browser, uid),
-
-        # 'nums_of_checkins': get_nums_of_checkins(browser),
-
-        'countryside': get_countryside(browser, uid),
-        'address': get_address(browser, uid),
-        'rela': get_rela(browser, uid)
+        # 'sex': get_sex(browser, uid),
+        # 'age': get_age(browser, uid),
+        # # 'nums_nested_link': get_nums_nested_link(browser),
+        #
+        # # 'about': get_about(browser),
+        #
+        # 'nums_of_images': get_nums_of_images(browser, uid),
+        # 'nums_of_videos': get_nums_of_videos(browser, uid),
+        # 'nums_of_albums': get_nums_of_albums(browser, uid),
+        #
+        # # 'nums_of_checkins': get_nums_of_checkins(browser),
+        #
+        # 'countryside': get_countryside(browser, uid),
+        # 'address': get_address(browser, uid),
+        # 'rela': get_rela(browser, uid)
     }
 
 
 def get_name(browser: WebDriver):
-    logging.info('get name')
     return browser.find_element(By.XPATH, cf.xpath_name).text
 
 
 def get_ava(browser: WebDriver):
-    logging.info('get ava')
     info = (
         browser.find_elements(By.XPATH, cf.xpath_ava)[1]
         .find_element(By.XPATH, "./child::*").get_attribute("xlink:href")
@@ -53,7 +51,6 @@ def get_ava(browser: WebDriver):
 
 
 def get_cover(browser: WebDriver):
-    logging.info('get cover')
     try:
         info = (
             browser.find_elements(By.XPATH, cf.xpath_cover)[2]
@@ -65,7 +62,6 @@ def get_cover(browser: WebDriver):
 
 
 def get_introduction(browser: WebDriver):
-    logging.info('get intro')
     try:
         info = (
             browser.find_elements(By.XPATH, cf.xpath_introduction_p)[0]
@@ -77,7 +73,6 @@ def get_introduction(browser: WebDriver):
 
 
 def get_nums_of_friend(browser: WebDriver):
-    logging.info('get_nums_of_friend')
     try:
         info = browser.find_element(By.XPATH, cf.xpath_nums_friend).text.split()[0]
         if 'K' in info:
@@ -291,7 +286,7 @@ def get_sex(browser: WebDriver, uid):
                     )
                     break
     except:
-        sex = cf.no_info_icon
+        sex = None
     return sex
 
 
