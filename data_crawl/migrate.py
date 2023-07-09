@@ -27,33 +27,11 @@ def get_data_from_url(url):
     browser.get(url)
 
     # CRAWL RANGE START
-    name = browser.find_element(By.XPATH, "//h1[@class='x1heor9g x1qlqyl8 x1pd3egz x1a2a7pz']").text
-    ava = (
-        browser.find_elements(By.XPATH,
-                              '//div[@class="x1rg5ohu x1n2onr6 x3ajldb x1ja2u2z"]/*[name()="svg"]/*[name()="g"]')[1]
-        .find_element(By.XPATH, "./child::*").get_attribute("xlink:href")
-    )
-    cover = (
-        browser.find_elements(By.XPATH,
-                              '//div[@class="x1qjc9v5 x1q0q8m5 x1qhh985 xu3j5b3 xcfux6l x26u7qi xm0m39n x13fuv20 x972fbf x1ey2m1c x9f619 x78zum5 xds687c xdt5ytf x1iyjqo2 xs83m0k x1qughib xat24cr x11i5rnm x1mh8g0r xdj266r x2lwn1j xeuugli x18d9i69 x4uap5 xkhd6sd xexx8yu x10l6tqk x17qophe x13vifvy x1ja2u2z"]')[
-            2]
-        .find_element(By.XPATH, "./child::*").get_attribute("src")
-    )
-    introduction = (
-        browser.find_elements(By.XPATH, "//div[@class='x2b8uid xdppsyt x1l90r2v']")[0]
-        .find_elements(By.XPATH, ".//*")[0].text.replace("\n", "")
-    )
-    try:
-        nums_of_friend = browser.find_element(By.XPATH,
-                                              "//a[@class='x1i10hfl xjbqb8w x6umtig x1b1mbwd xaqea5y xav7gou x9f619 x1ypdohk xt0psk2 xe8uvvx xdj266r x11i5rnm xat24cr x1mh8g0r xexx8yu x4uap5 x18d9i69 xkhd6sd x16tdsg8 x1hl2dhg xggy1nq x1a2a7pz xt0b8zv xi81zsa x1s688f']").text.split()[
-            0]
-        if 'K' in nums_of_friend:
-            nums_of_friend = float(nums_of_friend[:-1]) * 1000
-        elif nums_of_friend is not None:
-            nums_of_friend = float(nums_of_friend)
-    except:
-        nums_of_friend = None
-
+    name = get_name(browser)
+    ava = get_ava(browser)
+    cover = get_cover(browser)
+    introduction = get_introduction(browser)
+    nums_of_friend = get_nums_of_friend(browser)
     nums_of_images = get_nums_of_images(browser, url)
     nums_of_videos = get_nums_of_videos(browser, url)
     nums_of_albums = get_nums_of_albums(browser, url)
@@ -74,6 +52,57 @@ def get_data_from_url(url):
         'address': address,
         'rela': rela,
     }
+
+
+def get_name(browser):
+    return browser.find_element(By.XPATH, "//h1[@class='x1heor9g x1qlqyl8 x1pd3egz x1a2a7pz']").text
+
+
+def get_ava(browser):
+    info = (
+        browser.find_elements(By.XPATH,
+                              '//div[@class="x1rg5ohu x1n2onr6 x3ajldb x1ja2u2z"]/*[name()="svg"]/*[name()="g"]')[1]
+        .find_element(By.XPATH, "./child::*").get_attribute("xlink:href")
+    )
+    return info
+
+
+def get_cover(browser):
+    try:
+        info = (
+            browser.find_elements(By.XPATH,
+                                  '//div[@class="x1qjc9v5 x1q0q8m5 x1qhh985 xu3j5b3 xcfux6l x26u7qi xm0m39n x13fuv20 x972fbf x1ey2m1c x9f619 x78zum5 xds687c xdt5ytf x1iyjqo2 xs83m0k x1qughib xat24cr x11i5rnm x1mh8g0r xdj266r x2lwn1j xeuugli x18d9i69 x4uap5 xkhd6sd xexx8yu x10l6tqk x17qophe x13vifvy x1ja2u2z"]')[
+                2]
+            .find_element(By.XPATH, "./child::*").get_attribute("src")
+        )
+    except:
+        info = None
+    return info
+
+
+def get_introduction(browser):
+    try:
+        info = (
+            browser.find_elements(By.XPATH, "//div[@class='x2b8uid xdppsyt x1l90r2v']")[0]
+            .find_elements(By.XPATH, ".//*")[0].text.replace("\n", "")
+        )
+    except IndexError:
+        info = None
+    return info
+
+
+def get_nums_of_friend(browser):
+    try:
+        info = browser.find_element(By.XPATH,
+                                    "//a[@class='x1i10hfl xjbqb8w x6umtig x1b1mbwd xaqea5y xav7gou x9f619 x1ypdohk xt0psk2 xe8uvvx xdj266r x11i5rnm xat24cr x1mh8g0r xexx8yu x4uap5 x18d9i69 xkhd6sd x16tdsg8 x1hl2dhg xggy1nq x1a2a7pz xt0b8zv xi81zsa x1s688f']").text.split()[
+            0]
+        if 'K' in info:
+            info = float(info[:-1]) * 1000
+        elif info is not None:
+            info = float(info)
+    except:
+        info = None
+    return info
 
 
 def get_nums_of_images(browser, url):
@@ -139,7 +168,7 @@ def get_countryside(browser, url):
         if info in ('No places to show',):
             info = None
         # browser.back()
-    except:
+    except "//div[@class='x2b8uid xdppsyt x1l90r2v']":
         info = 'protected'
     return info
 
@@ -178,3 +207,6 @@ def get_rela(browser, url):
         info = 1
     # browser.back()
     return info
+
+
+print(get_data_from_url("https://www.facebook.com/baldassari"))
