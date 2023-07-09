@@ -1,0 +1,1 @@
+word2vec_path = "pre_trained/baomoi.model.bin"

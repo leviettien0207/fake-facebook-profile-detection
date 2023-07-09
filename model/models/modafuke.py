@@ -6,6 +6,10 @@ from torch import optim
 import torchvision
 from torchvision import models
 import torchvision.transforms as T
+import transformers
+from transformers.models.bert.modeling_bert import BertModel, BertPreTrainedModel
+from transformers import AutoModel, BertTokenizerFast
+
 class MulBert(nn.Module):
   def __init__(self):
         super(MulBert, self).__init__()

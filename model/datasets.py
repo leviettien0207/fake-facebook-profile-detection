@@ -3,15 +3,29 @@ import requests
 from io import BytesIO
 import torch
 from torch.utils.data import Dataset,DataLoader
+from gensim.models import KeyedVectors
+from config import word2vec_path
+import numpy as np
+
+word2vec_model = KeyedVectors.load_word2vec_format(word2vec_path,binary=True)
 
 def load_image(url):
     if url == None: return None
     response = requests.get(url)
     img = Image.open(BytesIO(response.content))
-    return img
+    return np.array(img)
+
 def get_text():
     pass
 
+
+def vectorize(sentence):
+    words = sentence.split()
+    words_vecs = [word2vec_model.get_vector(word) for word in words if word in word2vec_model.key_to_index]
+    if len(words_vecs) == 0:
+        return np.zeros(400)
+    words_vecs = np.array(words_vecs)
+    return np.mean(words_vecs,axis=0)
 class FBDataset(Dataset):
   def __init__(self,data, transforms = None, mode ='train'):
         super().__init__()
