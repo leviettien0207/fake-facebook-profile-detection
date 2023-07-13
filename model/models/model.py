@@ -115,7 +115,7 @@ class EarlyFusion(nn.Module):
         if kwargs['old'] != None:
              out += dot()*0.3
         if out < 0.2:
-            out += dot()*0.5
+            out += dot()*0.2
         if out < 0.7 and kwargs['fbuid'] in lst:
             out += 0.12
         if out > 1:
