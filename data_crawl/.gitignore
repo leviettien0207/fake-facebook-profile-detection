@@ -1,1 +1,5 @@
 .env
+in
+out
+out_data
+__pycache__

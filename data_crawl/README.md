@@ -7,6 +7,14 @@ crawl user id from group members
 <br>&emsp;&emsp;group_list (text): contains group links
 <br>&emsp;&emsp;name_list(text): contains names in order to help get more user id
 <br>&emsp;OUTPUT:
-<br>&emsp;&emsp;id_list(text): contains user ids (could be several files) 
+<br>&emsp;&emsp;id_list(text): contains user ids (could be several files)
+<br>&emsp;USAGE:
+<br>&emsp;&emsp;create virtual environment (optional)
+<br>&emsp;&emsp;cd data_crawl
+<br>&emsp;&emsp;pip install -r requirements.txt
+<br>&emsp;&emsp;fill facebook account detail to login at .env (need email and pass)
+<br>&emsp;&emsp;add facebook member url (exp: https://www.facebook.com/groups/machinelearningcoban/members) which fb account can access at in\group.txt
+<br>&emsp;&emsp;fix names at in\str_name.txt
+<br>&emsp;&emsp;python main.py
 <br>
 <br>crawl user info from user id
